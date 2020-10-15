@@ -1,0 +1,59 @@
+$"HARDNOGG+ 303 by Madgarden"
+
+$r8000
+$a25
+
+( $0 )
+
+t 10 >> 5 *
+
+( t 3 & | ) ( chirp)
+
+( melody )
+( t 12 >> 2 & 5 + & 1 + t * )
+5 & 1 + t * )
+
+
+( pitch changes )
+t 16 >> 3 & 1 + /
+
+10 * 12 /
+
+t 7 >> 127 & +
+
+( drum beat )
+ 9999999 x 1 + 15 * / t 1 15 x u + - << % / + )
+
+x x * u * ^
+
+( key )
+( 1 * )
+
+t 9 >> 1 & 1 + *
+
+( 2 * )
+
+( funky arp1 )
+ t 8 >> 3 & 1 - )
+
+( arp segment )
+t 15 >> 1 & * t 18 >> 1 & * )
+( arp mix )
+1 + * )
+
+( 2 * )
+
+( 303 hardcore dawg )
+dup t 11 >> 15 & 3 + * &
+
+dup 1 * t 19 >> 1 & * t ~ 9 >> 1 & * ^ 
+
+dup 3 * t ~ 9 >> 1 & * ^
+
+128 &
+
+( filter )
+255 & + 1 >> dup )
+
+( ending counter )
+v 1 >> | 

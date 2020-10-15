@@ -1,0 +1,41 @@
+$"TECHNOGG CARNIVAL '92 by Madgarden"
+
+$r8000
+$a25
+
+( $0 )
+
+t 10 >> 5 *
+
+( melody )
+t 12 >> 2 & 5 + & 1 + t * ) ~
+
+( pitch changes )
+t 16 >> 3 & 1 + /
+
+10 * 12 /
+
+( ??? )
+t 7 >> 127 & +
+
+( drum beat )
+9999999 x 1 + 50 * / t 1 15 x u + - << % / + 
+
+x x * u * ^
+
+( key )
+2 * 
+
+( funky arp1 )
+t 10 >> 7 & 3 - )
+
+( arp segment )
+ t 15 >> 1 & * t 18 >> 1 & * )
+( arp mix )
+1 + * )
+
+( organy )
+ dup t 4 >> 127 & 79 + x + + ^ )
+
+( ending counter )
+v |

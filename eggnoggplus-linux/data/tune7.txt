@@ -1,0 +1,47 @@
+$"EGGNOGGS OF CANADA (classic edition)"
+(
+	- $r is the tick speed in Hz
+	- $a is amplitude [volume] from 0 - 100
+	- $0 resets the song to start when it is live-loaded
+
+	- x is a value from 0 to 5, based on the current room outwards from
+		the center of the map... starting room is 0... 9 total rooms
+	- y is a random value set at game start
+	- u is set to 1 when a player reaches the final room
+	- v counts up to 255 over 10 seconds once the player leaps into
+		the EGGNOGG
+)
+
+$r8000
+$a30
+($0)
+t 10 >> 5 *
+
+t 9 & |
+
+5 & 1 + t *
+
+( 7 & 1 + t * )
+
+t 16 >> 3 & 1 + /
+
+10 * 12 /
+
+t 7 >> 127 & +
+
+9999999 x 1 + 25 * / t 1 15 x u + - << % / +
+
+x x * ^
+
+t 8 >> 3 &
+t 15 >> 1 & * t 18 >> 1 & * 1 + *
+
+2 *
+
+dup t 11 >> 63 & 15 + x + + ^
+
+255 & 2 / + 2 * 3 / dup
+
+(255 & + 1 >> dup)
+
+v |
