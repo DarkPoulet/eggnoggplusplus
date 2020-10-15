@@ -7,7 +7,7 @@ This script directly modify the binary code, it is not of great beauty.
 ## How to use ##
 0. Continue to read this README, there is some useful information
 1. Create a map in the folder "maps", copying the syntax from the other examples
-2. Add your map in the file "src/parameters.py"
+2. Add your map name in the file "src/parameters.py"
 3. Change the file "src/load_map.py" to use your new map
 4. Run `python src/load_map.py`
 5. Done. The eggnogg binary in folder "my_eggnogg" has the new map instead of "BUBBLE BATTLEFIELD". (Go to the directory "my_eggnogg, then run `./eggnoggplus`")
