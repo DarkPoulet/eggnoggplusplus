@@ -2,6 +2,7 @@
 
 This little script replaces the map "BUBBLE BATTLEFIELD" by the map of your design for the game eggnogg+: "https://madgarden.itch.io/eggnogg".
 This script directly modify the binary code, it is not of great beauty.
+
 Works on Linux and Windows. Require python3.
 
 ## How to use ##
@@ -10,19 +11,19 @@ Works on Linux and Windows. Require python3.
 2. Create a map in the folder "maps", copying the syntax from the other examples
 3. Change the file `main.py` to use your new map
 4. Run `main.py` with python3. (`python3 main.py` on linux)
-5. Done. The eggnogg binary in folder "my_eggnogg_linux" or "my_eggnogg_windows" has the new map instead of "BUBBLE BATTLEFIELD". (Go to the directory "my_eggnogg-\*", then run `eggnoggplus`).
+5. Done. The eggnogg binary in folder "my_eggnogg_linux" or "my_eggnogg_windows" has the new map instead of "BUBBLE BATTLEFIELD". (Go to the directory "my_eggnogg-\*", then run `eggnoggplus`). If you run into error "segmentation fault", it it probably because your map didn't respect the format decribed below.
 
 
 ## Limitations ##
 - You can only replace one map at a time, and only "BUBBLE BATTLEFIELD".
-- You have to make a 6-panel map (of size 12*33, as in examples)
-- You must strictly respect the format in the .map files. No whitespace, no extra character, nothing.
+- You have to make a 6-panel map (of size 12\*33, as in examples). You only design the left part of the map, and the right part will be symmetric. 
+- You must strictly respect the format in the .map files. No extra whitespace, no extra character, nothing.
 
 Most of these limitations are because I did not find the meta-data part in the binary, but it should be somewhere.
 
 ## The map format ##
 The .map format describes maps in a textual manner. You can edit them with any text editor.
-A map is a list of (6) panels. Each panel is constituted of 12*33 blocks, each block is represented by the following characters.
+A map is a list of (6) panels. Each panel is constituted of 12\*33 blocks, each block is represented by the following characters.
 ### Block codes ###
 - Empty:   (space)
 - Ground: @
