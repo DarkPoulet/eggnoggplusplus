@@ -2,14 +2,15 @@
 
 This little script replaces the map "BUBBLE BATTLEFIELD" by the map of your design for the game eggnogg+: "https://madgarden.itch.io/eggnogg".
 This script directly modify the binary code, it is not of great beauty.
-
+Works on Linux and Windows. Require python3.
 
 ## How to use ##
 0. Continue to read this README, there is some useful information
-1. Create a map in the folder "maps", copying the syntax from the other examples
-2. Change the file `main.py` to use your new map
-3. Run `main.py` with python3. (`python3 main.py` on linux)
-4. Done. The eggnogg binary in folder "my_eggnogg_linux" or "my_eggnogg_windows" has the new map instead of "BUBBLE BATTLEFIELD". (Go to the directory "my_eggnogg-\*", then run `eggnoggplus`).
+1. Download this github repository on your computer and go inside the folder `eggnoggplusplus` 
+2. Create a map in the folder "maps", copying the syntax from the other examples
+3. Change the file `main.py` to use your new map
+4. Run `main.py` with python3. (`python3 main.py` on linux)
+5. Done. The eggnogg binary in folder "my_eggnogg_linux" or "my_eggnogg_windows" has the new map instead of "BUBBLE BATTLEFIELD". (Go to the directory "my_eggnogg-\*", then run `eggnoggplus`).
 
 
 ## Limitations ##
