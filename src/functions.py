@@ -15,22 +15,26 @@ def compute_title(first_part, second_part) :
 	return bytes(title, "utf-8")
 
 
-
-# Write the binary
-def write_my_eggnogg(my_eggnogg) : 
-	output = open(MY_EGGNOGG_FILENAME, "wb")
+# Write the binary in the correct place.
+def write_my_eggnogg(my_eggnogg, output_filename) : 
+	output = open(output_filename, "wb")
 	output.write(my_eggnogg)
 	output.close()
 
 
-# Takes a bytestring map and puts it in eggnogg instead of the bubble map.
-def write_map(map) : 
-	binary = open(EGGNOGG_FILENAME, 'rb').read()
-
+def write_map_in_this_binary(map, binary_filename, output_filename) : 
+	binary = open(binary_filename, 'rb').read()
 	bubble_index = binary.find(b"BUBBLE")
 	index_after_map_bubble = bubble_index + SIZE_TITLE + NB_PANELS * WIDTH_PANEL * HEIGHT_PANEL + NB_PANELS
 	new_binary = binary[:bubble_index] + map + binary[index_after_map_bubble:]
-	write_my_eggnogg(new_binary)
+	write_my_eggnogg(new_binary, output_filename)
+
+# Takes a bytestring map and puts it in eggnogg instead of the bubble map.
+def write_map(map) : 
+	if I_AM_USING_LINUX : 
+		write_map_in_this_binary(map, EGGNOGG_FILENAME_LINUX, MY_EGGNOGG_FILENAME_LINUX)
+	if I_AM_USING_WINDOWS : 
+		write_map_in_this_binary(map, EGGNOGG_FILENAME_WIN, MY_EGGNOGG_FILENAME_WIN)
 
 
 # Read a map from a .map file and converts it to bytestring.

@@ -7,14 +7,12 @@ This script directly modify the binary code, it is not of great beauty.
 ## How to use ##
 0. Continue to read this README, there is some useful information
 1. Create a map in the folder "maps", copying the syntax from the other examples
-2. Add your map name in the file "src/parameters.py"
-3. Change the file "src/load_map.py" to use your new map
-4. Run `python src/load_map.py`
-5. Done. The eggnogg binary in folder "my_eggnogg" has the new map instead of "BUBBLE BATTLEFIELD". (Go to the directory "my_eggnogg, then run `./eggnoggplus`")
+2. Change the file `main.py` to use your new map
+3. Run `main.py` with python3. (`python3 main.py` on linux)
+4. Done. The eggnogg binary in folder "my_eggnogg_linux" or "my_eggnogg_windows" has the new map instead of "BUBBLE BATTLEFIELD". (Go to the directory "my_eggnogg-\*", then run `eggnoggplus`).
 
 
 ## Limitations ##
-- Works only for Linux (maybe this would work on windows with little to no modification, but I didn't try)
 - You can only replace one map at a time, and only "BUBBLE BATTLEFIELD".
 - You have to make a 6-panel map (of size 12*33, as in examples)
 - You must strictly respect the format in the .map files. No whitespace, no extra character, nothing.
@@ -48,18 +46,23 @@ If you designed new nice maps, you can also ask for a merge request or simply pa
 ## Repository overview ##
 ```
 .
-├── eggnoggplus-linux 				-> standard game
+├── eggnoggplus-linux               -> standard linux game
 │   └── ...
-├── maps							-> new maps 
+├── eggnoggplus-win                 -> standard windows game
+│   └── ...
+├── main.py                         -> The file you want to run
+├── maps                            -> new maps 
 │   ├── dejavu.map
 │   └── map_bubble_classic.map
-├── my_eggnogg						-> generated game
+├── my_eggnogg_linux                -> generated game for linux 
 │   └── ...
-├── README.md						-> you should read it
-├── ressources						-> a copy of the binary
-│   └── eggnoggplus
-└── src								-> source code of script
+├── my_eggnogg_win                  -> generated game for windows 
+│   └── ...
+├── README.md                       -> you should read it
+├── ressources                      -> a copy of the binaries
+│   ├── eggnoggplus-linux
+│   └── eggnoggplus-windows.exe
+└── src                             -> source code of script
     ├── functions.py
-    ├── load_map.py
     └── parameters.py
 ```
