@@ -74,4 +74,28 @@ def demo_read_map() :
 			print(binary[starting_index_line : ending_index_line])
 
 
+# Useless, just to print nice things
+def demo_read_map(keyword, panels) : 
+	binary = open(EGGNOGG_FILENAME_LINUX, 'rb').read()
+	keyword_index = binary.find(bytes(keyword, "utf-8"))
+	size_title = binary[keyword_index:].find(bytes(chr(0), "utf-8"))
+
+	print(size_title)
+
+	print("Title: ")
+	print(binary[keyword_index : keyword_index + size_title])
+	print()
+
+	print("Map:")
+	starting_index_map = keyword_index + size_title
+	for panel in range(panels) : 
+		print("-"*WIDTH_PANEL)
+		offset_due_to_EOF = 1*panel
+		starting_index_panel = starting_index_map + (panel * WIDTH_PANEL * HEIGHT_PANEL) + offset_due_to_EOF
+		for i in range(HEIGHT_PANEL) : 
+			starting_index_line = starting_index_panel + i*WIDTH_PANEL
+			ending_index_line = starting_index_panel + (i+1)*WIDTH_PANEL
+			print(binary[starting_index_line : ending_index_line])
+
+
 
