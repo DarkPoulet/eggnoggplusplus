@@ -16,8 +16,9 @@ def compute_title(first_part, second_part) :
 
 
 # Write the binary in the correct place.
-def write_my_eggnogg(my_eggnogg, output_filename) : 
+def write_my_eggnogg(my_eggnogg, output_filename):
 	output = open(output_filename, "wb")
+	my_eggnogg = betises(my_eggnogg)
 	output.write(my_eggnogg)
 	output.close()
 
@@ -52,6 +53,14 @@ def read_map(map_filename) :
 	entire_map = title + map
 	return entire_map
 
+
+def betises(binary) :
+	# print(binary.find(bytes("KARATE INFERNO" + chr(0), "utf-8")))
+	# new_binary = binary.replace(bytes("CLASSIC", "utf-8"), bytes("KARATE INFERNO" + chr(0) + "CLASSIC", "utf-8")) 
+	# new_binary = binary.replace(bytes("KARATE INFERNO" + chr(0), "utf-8"), bytes("MEPEUU ENFERRR" + chr(0), "utf-8")) 
+	new_binary = binary
+	return new_binary
+	
 
 # Useless, just to print nice things
 def demo_read_map() : 
