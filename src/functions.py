@@ -57,6 +57,7 @@ def read_map(map_filename) :
 	lines_map = [line for line in map.split("\n")]
 	lines_map_corrected = [adjust_line_size(line) for line in lines_map]
 	map = "\n".join(lines_map_corrected)
+	map = map.replace(".", " ")
 	map = map.replace("\n", "")
 	map = map.replace("-"*WIDTH_PANEL, chr(0))
 	map = bytes(map, "utf-8")
