@@ -17,7 +17,7 @@ MAP_TMP = "maps/tmp.map"
 OTHER_MAP="maps/???.map"
 
 ## Change here to use to variable you defined just above
-the_map_you_want_to_use = MAP_TMP
+the_map_you_want_to_use = MAP_HEHE
 
 
 # Do not modify this if you just want to use the script
@@ -26,7 +26,7 @@ map = read_map(the_map_you_want_to_use)
 write_map(map)
 print("Done.")
 
-# demo_read_map("THE", 6)
+demo_read_map("COMBAT", 5)
 
 
 
