@@ -38,6 +38,14 @@ def write_map(map) :
 		write_map_in_this_binary(map, EGGNOGG_FILENAME_WIN, MY_EGGNOGG_FILENAME_WIN)
 
 
+# Transforms a line to a line of the correct size (WIDTH_PANEL)
+def adjust_line_size(line) : 
+	if len(line) < WIDTH_PANEL: 
+		line = line + (" "*(WIDTH_PANEL - len(line)))
+	else: 
+		line = line[:WIDTH_PANEL]
+	return line
+
 # Read a map from a .map file and converts it to bytestring.
 def read_map(map_filename) : 
 	data = open(map_filename, "r").read()
@@ -46,12 +54,17 @@ def read_map(map_filename) :
 	first_part_title,second_part_title = line_title.split("#")
 	title = compute_title(first_part_title, second_part_title)
 	
+	lines_map = [line for line in map.split("\n")]
+	lines_map_corrected = [adjust_line_size(line) for line in lines_map]
+	map = "\n".join(lines_map_corrected)
 	map = map.replace("\n", "")
 	map = map.replace("-"*WIDTH_PANEL, chr(0))
 	map = bytes(map, "utf-8")
 
 	entire_map = title + map
 	return entire_map
+
+
 
 
 def betises(binary) :
