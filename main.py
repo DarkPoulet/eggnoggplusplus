@@ -8,11 +8,13 @@ from functions import *
 ## Available MAPS:
 MAP_BUBBLE_CLASSIC = "maps/map_bubble_classic.map"
 MAP_DEJAVU = "maps/dejavu.map"
+MAP_HEHE = "maps/hehe.map"
+MAP_BOOM = "maps/boom.map"
 ### Add your map name here
 OTHER_MAP="maps/dejavu2.map"
 
 ## Change here to use to variable you defined just above
-the_map_you_want_to_use = OTHER_MAP
+the_map_you_want_to_use = MAP_HEHE
 
 
 # Do not modify this if you just want to use the script
@@ -21,7 +23,7 @@ map = read_map(the_map_you_want_to_use)
 write_map(map)
 print("Done.")
 
-# demo_read_map()
+# demo_read_map("THE", 6)
 
 
 
