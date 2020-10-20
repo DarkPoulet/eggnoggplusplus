@@ -10,11 +10,14 @@ MAP_BUBBLE_CLASSIC = "maps/map_bubble_classic.map"
 MAP_DEJAVU = "maps/dejavu.map"
 MAP_HEHE = "maps/hehe.map"
 MAP_BOOM = "maps/boom.map"
+MAP_EMPTY = "maps/vide.map"
+MAP_HEHE2 = "maps/hehe2.map"
+MAP_TMP = "maps/tmp.map"
 ### Add your map name here
 OTHER_MAP="maps/???.map"
 
 ## Change here to use to variable you defined just above
-the_map_you_want_to_use = MAP_HEHE
+the_map_you_want_to_use = MAP_TMP
 
 
 # Do not modify this if you just want to use the script
