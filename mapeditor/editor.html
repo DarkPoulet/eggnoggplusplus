@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Eggnogg+ editor</title>
+	<script>
+		var canvas;
+		var ctx;
+		
+		const PANELS = 6;
+		const ROWS = 12;
+		const COLUMNS = 33;
+		
+		const TILE_AIR = " ";
+		const TILE_GROUND = "@";
+		const TILE_SPIKES_DOWN = "v";
+		const TILE_SPIKES_UP = "X";
+		const TILE_BOMB = "m";
+		const TILE_WAVE_KILL = "w";
+		const TILE_WAVE_WIN = "^";
+		const TILE_EGGNOGG = "E";
+		const TILE_BG_PILLAR = "I";
+		const TILE_BG_VERTICAL_LINE = "F";
+		const TILE_BG_DITHERED = "f";
+		const TILE_SUN = "O";
+		const TILE_SKULL = "Q";
+		
+		var tiles = [
+			{
+				name: "Air",
+				symbol: TILE_AIR,
+				url: ""
+			},
+			{
+				name: "Ground",
+				symbol: TILE_GROUND,
+				url: "res/ground.png",
+			},
+			{
+				name: "Spikes down",
+				symbol: TILE_SPIKES_DOWN,
+				url: "res/spikes_down.png",
+			},
+			{
+				name: "Spikes up",
+				symbol: TILE_SPIKES_UP,
+				url: "res/spikes_up.png",
+			},
+			{
+				name: "Bomb",
+				symbol: TILE_BOMB,
+				url: "res/bomb.png",
+			},
+			{
+				name: "Wave (kill)",
+				symbol: TILE_WAVE_KILL,
+				url: "res/wave_kill.png",
+			},
+			{
+				name: "Wave (win)",
+				symbol: TILE_WAVE_WIN,
+				url: "res/wave_win.png",
+			},
+			{
+				name: "Eggnogg",
+				symbol: TILE_EGGNOGG,
+				url: "res/eggnogg.png",
+			},
+			{
+				name: "BG pillar",
+				symbol: TILE_BG_PILLAR,
+				url: "res/bg_pillar.png",
+			},
+			{
+				name: "BG Vertical line",
+				symbol: TILE_BG_VERTICAL_LINE,
+				url: "res/bg_vertical_line.png",
+			},
+			{
+				name: "BG dithered",
+				symbol: TILE_BG_DITHERED,
+				url: "res/bg_dithered.png",
+			},
+			{
+				name: "Sun",
+				symbol: TILE_SUN,
+				url: "res/sun.png",
+			},
+			{
+				name: "Skull",
+				symbol: TILE_SKULL,
+				url: "res/skull.png",
+			},
+		]
+		
+		// Maps symbols to indices in the tiles array
+		var tilesIds = {};
+		
+		var imgGroundTop;
+		var imgGroundBot;
+		
+		var current_panel = 0;
+		
+		// Map data
+		var map_title = "Untitled";
+		var map_author = "Anonymous";
+		var map_panels = [];
+		
+		var brush_tile = TILE_AIR;
+		
+		function setBrushTile(tileChar) {
+			brush_tile = tileChar;
+		}
+		
+		function init() {
+			imgGroundTop = new Image();
+			imgGroundTop.src = "res/ground_top.png";
+			imgGroundBot = new Image();
+			imgGroundBot.src = "res/ground_bot.png";
+		
+			// Init tiles
+			var container = document.getElementById("brush_tile_selector");
+			tilesIds = {}
+			tiles.forEach(function(tile, index) {
+				tilesIds[tile.symbol] = index;
+				
+				var btnDiv = document.createElement("div");
+				var btn = document.createElement("input");
+				var label = document.createElement("label");
+				var img = document.createElement("img");
+				
+				btn.setAttribute("type", "radio");
+				btn.setAttribute("name", "brush_tile");
+				btn.setAttribute("value", tile.symbol);
+				btn.setAttribute("id", "t_"+tile.name);
+				btn.setAttribute("onclick", "setBrushTile('"+tile.symbol+"')");
+				if(brush_tile == tile.symbol) {
+					btn.setAttribute("checked", "checked");
+				}
+				
+				label.setAttribute("for", "t_"+tile.name);
+				label.innerText = tile.name;
+				
+				img.setAttribute("src", tile.url);
+				
+				label.appendChild(img);
+				btnDiv.appendChild(btn);
+				btnDiv.appendChild(label);
+				container.appendChild(btnDiv);
+				
+				tile.img = img;
+			});
+		
+			canvas = document.getElementById("mapview");
+			ctx = canvas.getContext("2d");
+			
+			canvas.addEventListener("mousedown", function(evt) {canvasClick(evt);}, false);
+			
+			newMap();
+			
+			refreshMap();
+		}
+		
+		function nextPanel() {
+			if(current_panel+1 < map_panels.length) {
+				current_panel++;
+				refreshMap();
+			}
+		}
+		
+		function previousPanel() {
+			if(current_panel > 0) {
+				current_panel--;
+				refreshMap();
+			}
+		}
+		
+		function newMap() {
+			console.log("Generating a new empty map...");
+		
+			current_panel = 0;
+			map_panels = [];
+			for(var p=0; p<PANELS; p++) {
+				panel = [];
+				for(var r=0; r<ROWS; r++) {
+					row = [];
+					for(var c=0; c<COLUMNS; c++) {
+						row.push(TILE_AIR);
+					}
+					panel.push(row);
+				}
+				map_panels.push(panel);
+			}
+			
+			refreshMap();
+		}
+		
+		function getMousePos(evt) {
+			var rect = canvas.getBoundingClientRect();
+			return {
+				x: evt.clientX - rect.left,
+				y: evt.clientY - rect.top
+			};
+		}
+		
+		function updateTitle() {
+			map_title = document.getElementById("map_title").value;
+			refreshMap();
+		}
+		
+		function updateAuthor() {
+			map_author = document.getElementById("map_author").value;
+			refreshMap();
+		}
+		
+		function refreshMap() {
+			document.getElementById("panel_id").innerText = map_panels.length-current_panel;
+			
+			var btn_prev_panel = document.getElementById("btn_prev_panel");
+			var btn_next_panel = document.getElementById("btn_next_panel");
+			if (current_panel == 0) {
+				btn_prev_panel.setAttribute("disabled", "");
+			} else {
+				btn_prev_panel.removeAttribute("disabled");
+			}
+			if (current_panel >= map_panels.length-1) {
+				btn_next_panel.setAttribute("disabled", "");
+			} else {
+				btn_next_panel.removeAttribute("disabled");
+			}
+			
+			document.getElementById("map_title").value = map_title;
+			document.getElementById("map_author").value = map_author;
+			
+			document.getElementById("source").innerText = map_to_text();
+			
+			console.log("Redrawing map...");
+			
+			var w = map_panels[current_panel][0].length;
+			var h = map_panels[current_panel].length;
+			
+			// Clear and background
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.fillStyle = "#b273d8";
+			ctx.fillRect(0, 0, w*16, h*16);
+			
+			// Draw grid
+			ctx.strokeStyle="lightgray";
+			for(var r=0; r<=h; r++) {
+				ctx.moveTo(0, r*16);
+				ctx.lineTo(w*16, r*16);
+				ctx.stroke();
+			}
+			for(var c=0; c<=w; c++) {
+				ctx.moveTo(c*16, 0);
+				ctx.lineTo(c*16, h*16);
+				ctx.stroke();
+			}
+			
+			// Draw tiles
+			for(var r=map_panels[current_panel].length-1; r>=0; r--) {
+				for(var c=0; c<map_panels[current_panel][r].length; c++) {
+					var symbol = map_panels[current_panel][r][c];
+					if(symbol in tilesIds && tiles[tilesIds[symbol]].img != null) {
+						ctx.drawImage(tiles[tilesIds[symbol]].img, c*16, r*16);
+						
+						if(symbol == TILE_GROUND) {
+							if(r > 0 && map_panels[current_panel][r-1][c] != TILE_GROUND) {
+								ctx.drawImage(imgGroundTop, c*16, (r-1)*16);
+							}
+							if(r+1 < h && map_panels[current_panel][r+1][c] != TILE_GROUND) {
+								ctx.drawImage(imgGroundBot, c*16, (r+1)*16);
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		function saveMapFile() {
+			console.log("Saving to file...");
+			
+			var blob = new Blob([map_to_text()], {type: "text/plain;charset=utf-8"});
+			
+			//window.location = window.URL.createObjectURL(blob);
+			
+			//window.open("data:text/plain;charset=utf-8,"+escape(map_to_text()));
+			
+			var a = document.createElement(a);
+			a.href = URL.createObjectURL(blob);//"data:text/plain;charset=utf-8,"+escape(map_to_text()));
+			a.download = map_title+".map";
+			document.body.append(a);
+			a.click();
+			a.remove();
+		}
+		
+		function loadMapFile() {
+			var input = document.getElementById("loadfile");
+			if (input.files.length < 1) {
+				return;
+			}
+			
+			console.log("Loading from file...");
+			
+			var file = input.files[0];
+			var reader = new FileReader();
+			reader.onload = function(progresEvent) {
+				text_to_map(this.result);
+			};
+			reader.readAsText(file, "UTF-8");
+		}
+		
+		const SEPARATOR = "---------------------------------";
+		function text_to_map(text) {
+			var map = {panels:[]};
+			
+			var panel_id = -1;
+			var curr_panel = [];
+			
+			var lines = text.split("\n");
+			for(var line=0; line < lines.length; line++) {
+				if(line == 0) {
+					split = lines[line].split("#")
+					if(split.length != 2) {
+						alert("Invalid map title / author line: "+lines[line]);
+						return;
+					}
+					map.title = split[0]
+					map.author = split[1]
+					console.log("Title: "+map.title+", Author: "+map.author);
+				} else if(lines[line] == SEPARATOR) { // End current panel and begin a new one
+					if(panel_id != -1) {
+						if(curr_panel.length != ROWS) {
+							alert("Invalid panel size: "+curr_panel.length+", expected "+ROWS+" (line "+line+")");
+							return;
+						}
+						map.panels.push(curr_panel);
+					}
+					panel_id ++;
+					curr_panel = [];
+				} else { // Add line TODO: Check characters validity
+					var arr = Array.from(lines[line]);
+					if(arr.length != COLUMNS) {
+						alert("Invalid line size: "+arr.length+", expected "+COLUMNS+" (line "+line+")");
+						return;
+					}
+					curr_panel.push(arr);
+				}
+			}
+			
+			// Incomplete panel
+			if(curr_panel.length != 0) {
+				alert("Unexpected end of file");
+				return;
+			}
+			
+			// Panel count check
+			if(panel_id != PANELS) {
+				alert("Invalid panel count: "+panel_id+", expected "+PANELS);
+				return;
+			}
+			
+			console.log("Success");
+			map_panels = map.panels;
+			map_title = map.title;
+			map_author = map.author;
+			
+			refreshMap();
+		}
+		
+		function map_to_text() {
+			var str = map_title+'#'+map_author+'\n'+SEPARATOR;
+
+			for(var panel=0; panel<map_panels.length; panel++) {
+				for(var row=0; row<map_panels[panel].length; row++) {
+					str += '\n';
+					for(var col=0; col<map_panels[panel][row].length; col++) {
+						str += map_panels[panel][row][col];
+					}
+				}
+				str += '\n'+SEPARATOR;
+			}
+	
+			return str;
+		}
+		
+		function canvasClick(evt) {
+			if(evt.button != 0) {
+				return;
+			}
+			
+			mouse = getMousePos(evt);
+			
+			tile_x = Math.floor(mouse.x / 16);
+			tile_y = Math.floor(mouse.y / 16);
+			
+			if(tile_y >= 0 && tile_y < map_panels[current_panel].length
+					&& tile_x >= 0 && tile_x < map_panels[current_panel][tile_y].length) {
+				
+				map_panels[current_panel][tile_y][tile_x] = brush_tile;
+				refreshMap();
+			} else {
+				console.log("Click outside of map area ("+tile_x+","+tile_y+")");
+			}
+		}
+	</script>
+</head>
+<body onload="init()">
+
+<div>
+	<div>
+		<input type="file" id="loadfile" accept=".map" onchange="loadMapFile()"/>
+		<button type="button" onclick="saveMapFile()">Save</button>
+	</div>
+
+	<div id="brush_tile_selector" style="column-count: 3;"></div>
+	
+	<div>
+		<label for="map_title">Title</label>
+		<input type="text" id="map_title" onchange="updateTitle()">
+		<label for="map_author">Author</label>
+		<input type="text" id="map_author" onchange="updateAuthor()">
+	</div>
+	
+	<div>
+		<button type="button" onclick="nextPanel()" id="btn_next_panel">&lt;</button>
+		<span id="panel_id"></span>
+		<button type="button" onclick="previousPanel()" id="btn_prev_panel">&gt;</button>
+	</div>
+	
+	<canvas id="mapview" width="550" height="200"></canvas>
+	
+	<div><pre id="source" rows="33" cols="50"></pre></div>
+</div>
+
+</body>
+</html>
+
