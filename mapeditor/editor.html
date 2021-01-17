@@ -106,6 +106,8 @@
 		var map_author = "Anonymous";
 		var map_panels = [];
 		
+		var downloadButton;
+		
 		var brush_tile = TILE_AIR;
 		
 		function setBrushTile(tileChar) {
@@ -150,6 +152,8 @@
 				
 				tile.img = img;
 			});
+			
+			downloadButton = document.getElementById("downloadbutton");
 		
 			canvas = document.getElementById("mapview");
 			ctx = canvas.getContext("2d");
@@ -157,8 +161,6 @@
 			canvas.addEventListener("mousedown", function(evt) {canvasClick(evt);}, false);
 			
 			newMap();
-			
-			refreshMap();
 		}
 		
 		function nextPanel() {
@@ -195,25 +197,38 @@
 			refreshMap();
 		}
 		
-		function getMousePos(evt) {
-			var rect = canvas.getBoundingClientRect();
-			return {
-				x: evt.clientX - rect.left,
-				y: evt.clientY - rect.top
-			};
-		}
-		
 		function updateTitle() {
 			map_title = document.getElementById("map_title").value;
-			refreshMap();
+			refreshMapData();
 		}
 		
 		function updateAuthor() {
 			map_author = document.getElementById("map_author").value;
-			refreshMap();
+			refreshMapData();
 		}
 		
+		// Refresh everything
 		function refreshMap() {
+			refreshMapData();
+			
+			refreshPanelButtons();
+			
+			redrawPanel();
+		}
+		
+		// Call when map data changed
+		function refreshMapData() {
+			document.getElementById("map_title").value = map_title;
+			document.getElementById("map_author").value = map_author;
+			
+			var mapString = map_to_text();
+			document.getElementById("source").innerText = mapString;
+			
+			downloadButton.href = URL.createObjectURL( new Blob([mapString], {type: "text/plain;charset=utf-8"}) );
+			downloadButton.download = map_title+".map";
+		}
+		
+		function refreshPanelButtons() {
 			document.getElementById("panel_id").innerText = map_panels.length-current_panel;
 			
 			var btn_prev_panel = document.getElementById("btn_prev_panel");
@@ -228,12 +243,9 @@
 			} else {
 				btn_next_panel.removeAttribute("disabled");
 			}
-			
-			document.getElementById("map_title").value = map_title;
-			document.getElementById("map_author").value = map_author;
-			
-			document.getElementById("source").innerText = map_to_text();
-			
+		}
+		
+		function redrawPanel() {
 			console.log("Redrawing map...");
 			
 			var w = map_panels[current_panel][0].length;
@@ -275,23 +287,6 @@
 					}
 				}
 			}
-		}
-		
-		function saveMapFile() {
-			console.log("Saving to file...");
-			
-			var blob = new Blob([map_to_text()], {type: "text/plain;charset=utf-8"});
-			
-			//window.location = window.URL.createObjectURL(blob);
-			
-			//window.open("data:text/plain;charset=utf-8,"+escape(map_to_text()));
-			
-			var a = document.createElement(a);
-			a.href = URL.createObjectURL(blob);//"data:text/plain;charset=utf-8,"+escape(map_to_text()));
-			a.download = map_title+".map";
-			document.body.append(a);
-			a.click();
-			a.remove();
 		}
 		
 		function loadMapFile() {
@@ -384,6 +379,14 @@
 			return str;
 		}
 		
+		function getMousePos(evt) {
+			var rect = canvas.getBoundingClientRect();
+			return {
+				x: evt.clientX - rect.left,
+				y: evt.clientY - rect.top
+			};
+		}
+		
 		function canvasClick(evt) {
 			if(evt.button != 0) {
 				return;
@@ -398,7 +401,9 @@
 					&& tile_x >= 0 && tile_x < map_panels[current_panel][tile_y].length) {
 				
 				map_panels[current_panel][tile_y][tile_x] = brush_tile;
-				refreshMap();
+				
+				refreshMapData();
+				redrawPanel();
 			} else {
 				console.log("Click outside of map area ("+tile_x+","+tile_y+")");
 			}
@@ -410,7 +415,7 @@
 <div>
 	<div>
 		<input type="file" id="loadfile" accept=".map" onchange="loadMapFile()"/>
-		<button type="button" onclick="saveMapFile()">Save</button>
+		<a id="downloadbutton">Save</a>
 	</div>
 
 	<div id="brush_tile_selector" style="column-count: 3;"></div>
