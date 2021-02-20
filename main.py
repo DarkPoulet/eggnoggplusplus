@@ -1,33 +1,28 @@
 import sys
 sys.path.insert(1, "src")
 
-from parameters import *
+from information import *
 from functions import * 
+from maps import *
 
-
-## Available MAPS:
-MAP_BUBBLE_CLASSIC = "maps/map_bubble_classic.map"
-MAP_DEJAVU = "maps/dejavu.map"
-MAP_HEHE = "maps/hehe.map"
-MAP_BOOM = "maps/boom.map"
-MAP_EMPTY = "maps/vide.map"
-MAP_HEHE2 = "maps/hehe2.map"
-MAP_TMP = "maps/tmp.map"
-### Add your map name here
-OTHER_MAP="maps/???.map"
-
-## Change here to use to variable you defined just above
-the_map_you_want_to_use = MAP_HEHE
+# Enter here all your choices. Add new choices in file src/maps.py
+instead_of = dict()
+instead_of[THE_BIG_STINKY] = MAP_THE_BIG_STINKY
+instead_of[BUBBLE_BATTLEFIELD] = MAP_HEHE
+instead_of[SWORDSKETBRAWL] = MAP_SWORDSKETBRAWL
+instead_of[CLASSIC] = MAP_CLASSIC
+instead_of[COMBAT_CAVERNS] = MAP_COMBAT_CAVERNS
 
 
 # Do not modify this if you just want to use the script
-print("Replacing bubble map by " + the_map_you_want_to_use + ".")
-map = read_map(the_map_you_want_to_use)
-write_map(map)
+print("Replacing maps...")
+replace_all_maps(instead_of)
 print("Done.")
 
-# demo_read_map("SWORDSKET", 1)
 
+
+# map = CLASSIC
+# print_map(map)
 
 
 
