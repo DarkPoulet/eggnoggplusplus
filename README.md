@@ -25,18 +25,24 @@ Most of these limitations are because I did not find the meta-data part in the b
 The .map format describes maps in a textual manner. You can edit them with any text editor.
 A map is a list of (6) panels. Each panel is constituted of 12\*33 blocks, each block is represented by the following characters.
 ### Block codes ###
-- Empty:   (space)
-- Ground: @
-- Spikes downwards: v
-- Spikes upwards: X
-- Bomb: m
-- wave (the kind that make you win): ^
-- wave (the kind that kill you): w
-- Eggnogg: E
+#### Gameplay blocks ####
+-  (space): empty/air
+- @: ground
+- v: spikes downwards
+- X: spikes upwards
+- m: Mine
+- K: spike ball
+- ^: wave (the kind that make you win)
+- E: eggnogg (makes you win)
+- w: wave (the kind that kill you)
+- W: black wave (the kind that kill you)
+#### Decoration blocks ####
 - Vertical line (decoration): I, F
 - Sun (decoration): O
 - Flowers (decoration): Q
 - Matrix (decoration): f
+- c: lamp (slow movement)
+- C: lamp (fast movement)
 - Some more..
 
 ## Share your nice maps or extend the program ##

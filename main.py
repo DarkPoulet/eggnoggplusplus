@@ -13,11 +13,13 @@ MAP_BOOM = "maps/boom.map"
 MAP_EMPTY = "maps/vide.map"
 MAP_HEHE2 = "maps/hehe2.map"
 MAP_TMP = "maps/tmp.map"
+MAP_DESTINATION_FINALE="maps/destination_finale.map"
+MAP_FLAT="maps/flat.map"
 ### Add your map name here
 OTHER_MAP="maps/dejavu2.map"
 
 ## Change here to use to variable you defined just above
-the_map_you_want_to_use = MAP_TMP
+the_map_you_want_to_use = MAP_HEHE
 
 
 # Do not modify this if you just want to use the script
@@ -26,7 +28,7 @@ map = read_map(the_map_you_want_to_use)
 write_map(map)
 print("Done.")
 
-# demo_read_map("THE", 6)
+demo_read_map("CLAS", 6)
 
 
 
