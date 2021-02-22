@@ -1,3 +1,4 @@
 src/__pycache__
 my_eggnogg*/eggnogg*
 launch.sh
+*.pyc
