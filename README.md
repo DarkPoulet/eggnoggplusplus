@@ -27,7 +27,7 @@ A map is a list of (6) panels. Each panel is constituted of 12\*33 blocks, each 
 #### Gameplay blocks ####
 -  (space): empty/air
 - @: ground
-- _: ceil (functions like ground but TODO: investigate)
+- _: ceil (functions like ground but display "top wall" even as a floor)
 - !: floor (functions like ground ?)
 - v: spikes downwards
 - X: spikes upwards
@@ -68,6 +68,7 @@ Bigger and static:
 - L: big provoking ideogram (2left*4up)
 - N: big shield ideogram (2left*4up)
 - Y: big drinking t-rex ideogram (2left*4up)
+- G: big circular ideogram (3*3up (shifted 1up))
 Bigger and moving:
 - c: lamp (slow movement) (1*3down)
 - C: lamp (fast movement) (3*3down)

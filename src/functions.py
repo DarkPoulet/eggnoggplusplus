@@ -55,6 +55,9 @@ def read_map(map_filename, original_map):
     title = compute_title(first_part_title, second_part_title, original_map.size_title, original_map.size_author)
 
     lines_map = [line for line in map.split("\n")]
+    # Cutting extra lines
+    lines_map = lines_map[:(original_map.height_panel+1)*original_map.nb_panels_to_design]
+    
     lines_map_corrected = [adjust_line_size(line, original_map.width_panel) for line in lines_map]
     map = "\n".join(lines_map_corrected)
     map = map.replace(".", " ")
