@@ -15,8 +15,12 @@ instead_of[COMBAT_CAVERNS] = MAP_FLAT7
 
 
 # Do not modify this if you just want to use the script
-print("Replacing maps...")
+print("Replacing:")
+for (old, new) in instead_of.items():
+    print(old.name.ljust(20) + "-->  " + new)
 replace_all_maps(instead_of)
+print()
+
 print("Done.")
 
 
