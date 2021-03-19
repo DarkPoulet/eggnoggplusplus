@@ -13,6 +13,7 @@ MAP_BOOM = "maps/boom.map"
 MAP_EMPTY = "maps/vide.map"
 MAP_BAKUP = "maps/backup"
 MAP_DESTINATION_FINALE = "maps/destination_finale.map"
+MAP_HEHE2 = "maps/hehe2.map"
 
 ##MAPS WITH 9 PANELS
 MAP_THE_BIG_STINKY = "maps/originals/the_big_stinky.map"

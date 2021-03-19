@@ -10,7 +10,7 @@ instead_of = dict()
 instead_of[THE_BIG_STINKY] = MAP_THE_BIG_STINKY
 instead_of[BUBBLE_BATTLEFIELD] = MAP_OMNISKILL
 instead_of[SWORDSKETBRAWL] = MAP_RICOCHET
-instead_of[CLASSIC] = MAP_FLAT11
+instead_of[CLASSIC] = MAP_HEHE
 instead_of[COMBAT_CAVERNS] = MAP_FLAT7
 
 
