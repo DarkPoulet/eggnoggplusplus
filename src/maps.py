@@ -21,6 +21,7 @@ MAP_FLAT9 = "maps/flat9.map"
 
 ##MAPS WITH 7 PANELS
 MAP_COMBAT_CAVERNS = "maps/originals/combat_caverns.map"
+MAP_HANDMASTER = "maps/handmaster.map"
 MAP_FLAT7 = "maps/flat7.map"
 
 ##MAPS WITH 1 PANELS

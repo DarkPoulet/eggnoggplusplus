@@ -11,7 +11,7 @@ instead_of[THE_BIG_STINKY] = MAP_THE_BIG_STINKY
 instead_of[BUBBLE_BATTLEFIELD] = MAP_OMNISKILL
 instead_of[SWORDSKETBRAWL] = MAP_RICOCHET
 instead_of[CLASSIC] = MAP_HEHE
-instead_of[COMBAT_CAVERNS] = MAP_FLAT7
+instead_of[COMBAT_CAVERNS] = MAP_HANDMASTER
 
 
 # Do not modify this if you just want to use the script
