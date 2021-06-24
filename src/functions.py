@@ -1,4 +1,7 @@
 from information import *
+import subprocess
+# temporary
+from maps import *
 
 
 # From title and author in string, gets the title bytestring.
@@ -80,6 +83,31 @@ def replace_all_maps(instead_of):
 
     write_my_eggnogg(linux_binary, MY_EGGNOGG_FILENAME_LINUX)
     write_my_eggnogg(windows_binary, MY_EGGNOGG_FILENAME_WIN)
+
+def generate_new_random_maps():
+    command = "cd map_generator ; cargo +nightly run"
+    rez = subprocess.run(command, capture_output=True, shell=True)
+    # print("---------------------------------------------")
+    # print("Map generation stderr:\n" + rez.stderr.decode())
+    # print("---------------------------------------------")
+
+
+def replace_all_maps_for_random():
+    instead_of = dict()
+    instead_of[BUBBLE_BATTLEFIELD] = RANDOM_MAPS_PATH + "generated_11.map"
+    instead_of[THE_BIG_STINKY] = MAP_FLAT9
+    instead_of[SWORDSKETBRAWL] = MAP_FLAT1
+    instead_of[CLASSIC] = MAP_FLAT11
+    instead_of[COMBAT_CAVERNS] = MAP_FLAT7
+
+    linux_binary = get_binary(EGGNOGG_FILENAME_LINUX)
+    for (original, path_my_map) in instead_of.items():
+        name = original.name
+        nb_panels = original.nb_panels_to_design
+        my_map = read_map(path_my_map, original)
+        linux_binary = write_map_in_this_binary(original, my_map, linux_binary)
+
+    write_my_eggnogg(linux_binary, MY_EGGNOGG_FILENAME_LINUX_RANDOM)
 
 
 

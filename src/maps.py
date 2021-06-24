@@ -12,9 +12,11 @@ MAP_DEJAVU = "maps/dejavu.map"
 MAP_BOOM = "maps/boom.map"
 MAP_EMPTY = "maps/vide.map"
 MAP_BAKUP = "maps/backup"
+MAP_TEST = "maps/test.map"
 MAP_DESTINATION_FINALE = "maps/destination_finale.map"
 MAP_HEHE2 = "maps/hehe2.map"
 MAP_WAOU = "maps/waou.map"
+MAP_GENERATED = "maps/generated.map"
 
 
 ##MAPS WITH 9 PANELS

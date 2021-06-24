@@ -1,0 +1,4 @@
+target
+generated/latest
+Cargo.lock
+clingo/input.lp

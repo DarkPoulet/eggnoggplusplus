@@ -20,9 +20,4 @@ for (old, new) in instead_of.items():
     print(old.name.ljust(20) + "-->  " + new)
 replace_all_maps(instead_of)
 print()
-
 print("Done.")
-
-
-# map = CLASSIC
-# print_map(map)

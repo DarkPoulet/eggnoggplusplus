@@ -1,5 +1,9 @@
 EGGNOGG_FILENAME_LINUX = "ressources/eggnoggplus-linux"
 MY_EGGNOGG_FILENAME_LINUX = "my_eggnogg_linux/eggnoggplus"
+MY_EGGNOGG_FILENAME_LINUX_RANDOM = "my_eggnogg_linux/randeggnoggplus"
+
+RANDOM_GENERATOR_PATH = "map_generator/"
+RANDOM_MAPS_PATH = RANDOM_GENERATOR_PATH + "generated/latest/"
 
 EGGNOGG_FILENAME_WIN = "ressources/eggnoggplus-windows.exe"
 MY_EGGNOGG_FILENAME_WIN = "my_eggnogg_win/eggnoggplus.exe"

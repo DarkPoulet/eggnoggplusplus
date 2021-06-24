@@ -1,0 +1,9 @@
+# Brace style for functions.
+# Values: AlwaysNextLine | PreferSameLine | SameLineWhere
+# Default: SameLineWhere
+
+brace_style = "AlwaysNextLine"
+control_brace_style = "AlwaysNextLine"
+indent_style = "Block"
+reorder_imports = false
+hard_tabs = true
