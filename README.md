@@ -1,6 +1,6 @@
 # eggnoggplusplus #
 
-This little script replaces the maps you want by the maps of your design for the game eggnogg+: "https://madgarden.itch.io/eggnogg".
+This little script replaces the maps by the maps of your design for the game eggnogg+: "https://madgarden.itch.io/eggnogg".
 This script directly modify the binary code, it is not of great beauty.
 
 Works on Linux and Windows. Requires python3.
@@ -8,7 +8,7 @@ Works on Linux and Windows. Requires python3.
 ## How to use ##
 0. Continue to read this README, there is some useful information
 1. Download this github repository on your computer and go inside the folder `eggnoggplusplus` 
-2. Create a map in the folder "maps", either using the `mapeditor` or manually by copying the syntax from the other examples
+2. Create a map in the folder "maps", either using the `mapeditor` or manually by copying the syntax from the other examples (recommended)
 3. Change the file `main.py` to use your new map
 4. Run `main.py` with python3. (`python3 main.py` on linux)
 5. Done. The eggnogg binary in folder "my_eggnogg_linux" or "my_eggnogg_windows" has the new maps according to what you changed in `main.py`. (Go to the directory "my_eggnogg-\*", then run `eggnoggplus`). If you run into error "segmentation fault", it is probably because your map didn't respect the format decribed below, or that you didn't go in the folder "my_eggnogg_*" before running eggnogg.
